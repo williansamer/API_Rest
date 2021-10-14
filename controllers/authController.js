@@ -8,6 +8,7 @@ const autoConfig = require("../config/auth.json")
 function generateId(params = {}){ //IMPORTANTE: Observe que está passando como argumento um OBJETO. Por isso que aqui no 'generateId' está como 'params = {}'
     return jwt.sign(params, autoConfig.secret, {expiresIn: 86400})
 }
+//OBS:  Pode-se gerar este "MD5 Hash"(autoConfig.secret) na própria internet.
 
 router.post("/register", async (req, res)=>{
     const {email} = req.body; //'{email}' é o obj 'email' e estamos pegando o corpo do email(req.body) que no caso, é o email digitado pelo usuário
