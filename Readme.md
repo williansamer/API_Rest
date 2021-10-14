@@ -15,3 +15,4 @@
 - express
 - bcryptjs
 - mongoose
+- jsonwebtoken
