@@ -1,3 +1,5 @@
+//A função do MIDDLEWARE é interceptar requisições de usuários que não estiverem 'logados'. Intercepta a requisição entre o controller e a parte da rota. Ou seja, Lá na requisição do controller, terá que ter um 'HEADER' de autenticação. E o MIDDLEWARE é o responsável para verificar se este token/autenticação está correto.
+
 const jwt = require("jsonwebtoken");
 const autoConfig = require("../config/auth.json");
 
@@ -14,8 +16,8 @@ module.exports = (req, res, next)=>{
         return res.status(401).send({error: "Token error"});//Dá erro de token
     }
 
-    const [scheme, token] = parts; // Dando 'nomes' as duas partes do 'parts'. A do index[0] com o nome 'scheme'(este tem que ser a palavra 'Bearer'). Index[1] com o nome 'token'(este tem que ser o token)
-    if(!/^Bearer$/.test(scheme)){ //Se não for a palavra 'Bearer'(é um regex('/' indica o começo e o final. '^' indica o começo da palavra e o '$' indica o final da palavra))...
+    const [scheme, token] = parts; // DESESTRUTURANDO O ARRAY. Dando 'nomes' as duas partes do 'parts'. A do index[0] com o nome 'scheme'(este tem que ser a palavra 'Bearer'). Index[1] com o nome 'token'(este tem que ser o token)
+    if(!/^Bearer$/i.test(scheme)){ //Se não for a palavra 'Bearer'(é um regex('/' indica o começo e o final. '^' indica o começo da palavra e o '$' indica o final da palavra))...
         return res.status(401).send({error: "Token malformatted"}); //Dá erro de token malformado
     }
 
